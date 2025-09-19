@@ -1,2 +1,2 @@
-"# samvaad_wdemo" 
+Prototype for project SAMVAAD
 
