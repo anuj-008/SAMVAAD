@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMVAAD - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #a8b5a0 0%, #8b9b7a 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #7a8471;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr 280px;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .profile-card, .sidebar-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .profile-cover {
+            height: 80px;
+            background: linear-gradient(135deg, #7a8471 0%, #6b7862 100%);
+            position: relative;
+        }
+
+        .profile-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 2rem;
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid white;
+        }
+
+        .profile-info {
+            padding: 3rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-location {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            color: #7a8471;
+            font-size: 1.1rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.2rem;
+        }
+
+        .sidebar-card h3 {
+            padding: 1rem 1.5rem;
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-item {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-item:hover {
+            background: #f8f9fa;
+        }
+
+        .sidebar-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-text {
+            flex: 1;
+        }
+
+        .sidebar-text h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .sidebar-text p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .sidebar-number {
+            color: #7a8471;
+            font-weight: bold;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .trending-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .trending-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-item:hover {
+            background: #f8f9fa;
+        }
+
+        .trending-hashtag {
+            color: #7a8471;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .trending-posts {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .create-post {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .create-post-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .create-post textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            min-height: 80px;
+        }
+
+        .create-post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .post-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .post-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .post-option:hover {
+            background: #f0f0f0;
+        }
+
+        .post-btn {
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .post-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            gap: 1rem;
+        }
+
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #a8b5a0, #8b9b7a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .post-info h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .post-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .post-time {
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .post-content {
+            padding: 0 1.5rem 1rem;
+        }
+
+        .post-content p {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #7a8471, #6b7862);
+            margin: 1rem 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.liked {
+            color: #7a8471;
+        }
+
+        .engagement-stats {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">SAMVAAD</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Network</a>
+                <a href="#">Jobs</a>
+                <a href="#">Messages</a>
+                <a href="#">Notifications</a>
+                <div class="profile-pic">U</div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- Left Sidebar - Profile -->
+        <div class="sidebar">
+            <div class="profile-card">
+                <div class="profile-cover">
+                    <div class="profile-avatar-large">AS</div>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name">Anuj Singh Rathore</div>
+                    <div class="profile-title">Btech CSE Student</div>
+                    <div class="profile-location">Bhopal, Madhya Pradesh</div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Connections</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Articles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Feed -->
+        <div class="container">
+            <div class="create-post">
+                <div class="create-post-header">
+                    <div class="profile-pic">U</div>
+                    <textarea placeholder="What's on your mind? Share your thoughts with the SAMVAAD community..." id="postText"></textarea>
+                </div>
+                <div class="create-post-actions">
+                    <div class="post-options">
+                        <div class="post-option">📷 Photo</div>
+                        <div class="post-option">🎥 Video</div>
+                        <div class="post-option">📄 Document</div>
+                    </div>
+                    <button class="post-btn">Post</button>
+                </div>
+            </div>
+
+            <div id="posts">
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-avatar">AR</div>
+                        <div class="post-info">
+                            <h3>Arjun Reddy</h3>
+                            <p>Software Engineer at Tech Corp</p>
+                        </div>
+                        <div class="post-time">2h</div>
+                    </div>
+                    <div class="engagement-stats">
+                        45 likes • 12 comments • 3 shares
+                    </div>
+                    <div class="post-content">
+                        <p>Just launched our new AI-powered feature! 🚀 It's amazing how technology can transform user experiences.</p>
+                        <div class="post-image">🤖 AI Feature Demo</div>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn">👍 Like</button>
+                        <button class="action-btn">💬 Comment</button>
+                        <button class="action-btn">🔄 Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar">
+            <div class="trending-card">
+                <h3 style="padding: 1rem 1.5rem; margin: 0; border-bottom: 1px solid #eee;">Trending Topics</h3>
+                <div class="trending-item">
+                    <div class="trending-hashtag">#AI2025</div>
+                    <div class="trending-posts">1,247 posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="trending-hashtag">#TechJobs</div>
+                    <div class="trending-posts">892 posts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

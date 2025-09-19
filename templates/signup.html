@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMVAAD - Sign Up</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #8d9988; /* muted green background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .signup-container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .signup-header h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .signup-header p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* Role Selection */
+    .role-options {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .role-option {
+      padding: 0.6rem 1.5rem;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    .role-option input {
+      accent-color: #7a8471;
+    }
+    .role-option:hover {
+      border-color: #7a8471;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #7a8471;
+      box-shadow: 0 0 0 3px rgba(122, 132, 113, 0.15);
+    }
+
+    /* File upload */
+    .file-upload-label {
+      display: block;
+      padding: 0.75rem;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .file-upload-label:hover {
+      border-color: #7a8471;
+      background: rgba(122, 132, 113, 0.05);
+    }
+
+    /* Submit Button */
+    .signup-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      background: #7a8471;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .signup-btn:hover {
+      background: #65705f;
+    }
+
+    .extra-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .extra-links a {
+      color: #7a8471;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-header">
+      <h2>Join SAMVAAD</h2>
+      <p>Create your account to connect with your alumni network</p>
+    </div>
+
+    <form action="/signup" method="POST" enctype="multipart/form-data">
+      <!-- Role -->
+      <div class="role-options">
+        <label class="role-option">
+          <input type="radio" name="role" value="student" required> 🎓 Student
+        </label>
+        <label class="role-option">
+          <input type="radio" name="role" value="alumni" required> 👔 Alumni
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="full_name">Full Name *</label>
+        <input type="text" id="full_name" name="full_name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password *</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth *</label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+
+      <div class="form-group">
+        <label for="graduationYear">Graduation Year *</label>
+        <input type="number" id="graduationYear" name="graduationYear" min="1990" max="2035" required>
+      </div>
+
+      <div class="form-group">
+        <label for="college">College *</label>
+        <select id="college" name="college" required>
+          <option value="">Select College</option>
+          <option value="LNCT">LNCT - Lakshmi Narain College of Technology</option>
+          <option value="LNCTS">LNCTS - LNCT & Science</option>
+          <option value="LNCTE">LNCTE - LNCT Excellence</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="accsoft_id">Accsoft ID *</label>
+        <input type="text" id="accsoft_id" name="accsoft_id" placeholder="Enter your Accsoft ID" required>
+      </div>
+
+      <div class="form-group">
+        <label for="id_image">Upload ID Card *</label>
+        <input type="file" id="id_image" name="id_image" accept="image/*" required>
+        <label for="id_image" class="file-upload-label">📄 Click to upload your student ID card photo</label>
+      </div>
+
+      <button type="submit" class="signup-btn">Create Account</button>
+    </form>
+
+    <div class="extra-links">
+      <p>Already have an account? <a href="/login">Log in</a></p>
+    </div>
+  </div>
+</body>
+</html>
