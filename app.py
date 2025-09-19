@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import sqlite3
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
-# from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import decode
 from PIL import Image
 import io, base64
 import google.generativeai as genai
@@ -165,6 +165,15 @@ def home():
     conn.close()
 
     return render_template("home.html", user=user)
+
+
+@app.route("/profile")
+def profile():
+    if "user" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    return render_template("profile.html")
 
 
 @app.route("/logout")
