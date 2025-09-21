@@ -74,14 +74,8 @@ def signup():
         image_bytes = file.read()
 
         # Step 1: barcode
-        barcode_result = verify_with_barcode(image_bytes, accsoft_id)
-
-        if barcode_result is True:
-            verified = True
-        elif barcode_result is False:
-            verified = False
-        else:
-            verified = verify_with_gemini(image_bytes, accsoft_id)
+        
+        verified = verify_with_gemini(image_bytes, accsoft_id)
 
         if not verified:
             flash("❌ ID Verification failed. Cannot sign up.")
