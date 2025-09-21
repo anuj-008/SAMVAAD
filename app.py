@@ -12,7 +12,9 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"  # change this in production
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyBKV1TrzEu6JjKqhqwn-SuKylZTiI9yrQc")  # replace with your actual key
+genai_api_key = os.environ.get("GEMINI_API_KEY")
+if not genai_api_key:
+    raise RuntimeError("❌ GEMINI_API_KEY is not set in environment variables!")
 
 
 # ====== DB INIT ======
