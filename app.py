@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import sqlite3
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
-from pyzbar.pyzbar import decode
-from PIL import Image
+# from pyzbar.pyzbar import decode
+# from PIL import Image
 import io, base64
 import google.generativeai as genai
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"  # change this in production
 
 # Configure Gemini API
-genai.configure(api_key="YOUR_GEMINI_API_KEY")  # replace with your actual key
+genai.configure(api_key="AIzaSyBKV1TrzEu6JjKqhqwn-SuKylZTiI9yrQc")  # replace with your actual key
 
 
 # ====== DB INIT ======
@@ -37,29 +37,18 @@ def init_db():
 
 
 # ====== HELPERS ======
-def verify_with_barcode(image_bytes, entered_code):
-    """Try reading barcode first."""
-    img = Image.open(io.BytesIO(image_bytes))
-    decoded = decode(img)
-    if decoded:
-        scanned = decoded[0].data.decode("utf-8")
-        return scanned == entered_code
-    return None
-
-
 def verify_with_gemini(image_bytes, entered_code):
-    """Fallback OCR using Gemini API."""
+    """Verify ID number using Gemini OCR."""
     b64_img = base64.b64encode(image_bytes).decode("utf-8")
+
     model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content(
-        [
-            {"mime_type": "image/png", "data": b64_img},
-            "Extract the digits visible on the ID card (especially below barcode).",
-        ]
-    )
+    response = model.generate_content([
+        {"mime_type": "image/png", "data": b64_img},
+        "Extract the digits visible on the ID card (especially below barcode)."
+    ])
+
     text = response.text.strip()
     return entered_code in text
-
 
 # ====== ROUTES ======
 @app.route("/")
