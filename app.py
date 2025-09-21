@@ -5,10 +5,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # from pyzbar.pyzbar import decode
 # from PIL import Image
 import io, base64
-import google.generativeai as genai
 # Suppress noisy gRPC warnings
 os.environ["GRPC_VERBOSITY"] = "NONE"
 os.environ["GRPC_ENABLE_FORK_SUPPORT"] = "0"
+import google.generativeai as genai
+
 
 # ====== CONFIG ======
 app = Flask(__name__)
